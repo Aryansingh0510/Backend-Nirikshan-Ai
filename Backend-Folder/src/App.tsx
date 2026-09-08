@@ -24,7 +24,7 @@ import { InspectorLocationView } from './views/InspectorLocationView';
 import { InspectorChecklistView } from './views/InspectorChecklistView';
 
 export function App() {
-  const [currentScreen, setCurrentScreen] = useState<ScreenId>('persona-select');
+  const [currentScreen, setCurrentScreen] = useState<ScreenId>('dashboard');
   const [selectedInstitution, setSelectedInstitution] = useState<Institution>(mockInstitutions[0]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSurpriseModalOpen, setIsSurpriseModalOpen] = useState(false);
