@@ -9,8 +9,8 @@ class Inspection(Base):
     __tablename__ = "inspections"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    institution_id: Mapped[str] = mapped_column(String(36), ForeignKey("institutions.id"), nullable=False)
-    inspector_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), nullable=False)
+    institution_id: Mapped[str] = mapped_column(String(36), ForeignKey("institutions.id"), index=True, nullable=False)
+    inspector_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), index=True, nullable=False)
     inspector_latitude: Mapped[float] = mapped_column(Float, nullable=False)
     inspector_longitude: Mapped[float] = mapped_column(Float, nullable=False)
     gps_accuracy: Mapped[float] = mapped_column(Float, nullable=True)
@@ -21,7 +21,12 @@ class Inspection(Base):
     verified_operational_status: Mapped[str] = mapped_column(String(50), default="Operational (Full)")
     inspection_status: Mapped[str] = mapped_column(String(50), default="Pending")
     notes: Mapped[str] = mapped_column(Text, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True, default=lambda: datetime.now(timezone.utc))
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc),
+    )
 
     institution = relationship("Institution", back_populates="inspections")
     inspector = relationship("User", back_populates="inspections")

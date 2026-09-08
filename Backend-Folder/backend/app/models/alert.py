@@ -12,7 +12,7 @@ class Alert(Base):
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     institution_name: Mapped[str] = mapped_column(String(200), nullable=False)
     institution_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
-    severity: Mapped[str] = mapped_column(String(50), default="Warning")
+    severity: Mapped[str] = mapped_column(String(50), default="Warning", index=True)
     time: Mapped[str] = mapped_column(String(50), default="14:30 IST")
     date: Mapped[str] = mapped_column(String(50), default="Today")
     description: Mapped[str] = mapped_column(Text, nullable=False)
@@ -21,5 +21,10 @@ class Alert(Base):
     reported_val: Mapped[int] = mapped_column(Integer, nullable=True)
     verified_val: Mapped[int] = mapped_column(Integer, nullable=True)
     assigned_to: Mapped[str] = mapped_column(String(100), nullable=True)
-    acknowledged: Mapped[bool] = mapped_column(Boolean, default=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    acknowledged: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True, default=lambda: datetime.now(timezone.utc))
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc),
+    )

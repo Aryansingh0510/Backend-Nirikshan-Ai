@@ -9,7 +9,7 @@ class Evidence(Base):
     __tablename__ = "evidence"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    inspection_id: Mapped[str] = mapped_column(String(36), ForeignKey("inspections.id"), nullable=False)
+    inspection_id: Mapped[str] = mapped_column(String(36), ForeignKey("inspections.id"), index=True, nullable=False)
     file_url: Mapped[str] = mapped_column(String(500), nullable=False)
     file_type: Mapped[str] = mapped_column(String(50), nullable=False)
     file_name: Mapped[str] = mapped_column(String(200), nullable=False)

@@ -10,7 +10,9 @@ class Institution(Base):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name: Mapped[str] = mapped_column(String(200), nullable=False, index=True)
-    registration_number: Mapped[str] = mapped_column(String(100), unique=True, nullable=False, default=lambda: f"REG-{uuid.uuid4().hex[:6].upper()}")
+    registration_number: Mapped[str] = mapped_column(
+        String(100), unique=True, index=True, nullable=False, default=lambda: f"REG-{uuid.uuid4().hex[:6].upper()}"
+    )
     address: Mapped[str] = mapped_column(String(300), nullable=False, default="Maharashtra")
     location: Mapped[str] = mapped_column(String(300), nullable=False, default="Maharashtra")
     state: Mapped[str] = mapped_column(String(100), default="Maharashtra")
@@ -38,6 +40,11 @@ class Institution(Base):
     reported_beneficiaries: Mapped[int] = mapped_column(Integer, default=100)
     operational_status: Mapped[str] = mapped_column(String(50), default="Operational (Full)")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc),
+    )
 
     inspections = relationship("Inspection", back_populates="institution")
     risk_assessments = relationship("RiskAssessment", back_populates="institution")
