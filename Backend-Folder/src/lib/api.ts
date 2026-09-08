@@ -80,6 +80,25 @@ export const api = {
     return handleResponse(res);
   },
 
+  // Auth
+  async loginUser(email: string, password: string): Promise<{ access_token: string; token_type: string; user: { id: string; name: string; email: string; role: string } }> {
+    const res = await fetch(`${BASE_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    return handleResponse(res);
+  },
+
+  async registerUser(payload: { name: string; email: string; password: string; role: string }): Promise<{ access_token: string; token_type: string; user: { id: string; name: string; email: string; role: string } }> {
+    const res = await fetch(`${BASE_URL}/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return handleResponse(res);
+  },
+
   // Institutions
   async getInstitutions(params?: { search?: string; type?: string; status?: string; zone?: string }): Promise<{ data: Institution[]; count: number }> {
     const query = new URLSearchParams();
