@@ -77,6 +77,14 @@ def create_application() -> FastAPI:
             "version": "1.0.0"
         }
 
+    @application.on_event("startup")
+    def startup_db_seed():
+        try:
+            from app.db.seed import seed_database
+            seed_database()
+        except Exception as e:
+            print(f"Startup seed warning: {e}")
+
     return application
 
 app = create_application()

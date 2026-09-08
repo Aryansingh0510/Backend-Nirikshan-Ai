@@ -14,6 +14,8 @@ from app.models.audit_log import AuditLog
 from app.models.alert import Alert
 from app.models.telemetry import Telemetry
 
+from app.core.security import get_password_hash
+
 def seed_database():
     print("🌱 Starting database seeding...")
     
@@ -27,34 +29,36 @@ def seed_database():
             print("ℹ️ Database already contains seed data. Skipping seeding.")
             return
 
+        default_pw_hash = get_password_hash("Password123!")
+
         # 1. Seed Users
         users = [
             User(
                 id="usr-off-1",
                 name="Director S. Rameshwar",
                 email="director@nirikshan.gov.in",
-                password_hash="$2b$12$eImiTXuWVxfM37uY4JANjO4iWf8/u4jXb5d4e3f2g1h0i",
+                password_hash=default_pw_hash,
                 role="official"
             ),
             User(
                 id="usr-insp-1",
                 name="Inspector Priya Nair",
                 email="priya.nair@nirikshan.gov.in",
-                password_hash="$2b$12$eImiTXuWVxfM37uY4JANjO4iWf8/u4jXb5d4e3f2g1h0i",
+                password_hash=default_pw_hash,
                 role="inspector"
             ),
             User(
                 id="usr-insp-2",
                 name="Inspector Rajesh Mane",
                 email="rajesh.mane@nirikshan.gov.in",
-                password_hash="$2b$12$eImiTXuWVxfM37uY4JANjO4iWf8/u4jXb5d4e3f2g1h0i",
+                password_hash=default_pw_hash,
                 role="inspector"
             ),
             User(
                 id="usr-inst-1",
                 name="Admin Dr. V. Joshi",
                 email="admin@abcwelfare.org",
-                password_hash="$2b$12$eImiTXuWVxfM37uY4JANjO4iWf8/u4jXb5d4e3f2g1h0i",
+                password_hash=default_pw_hash,
                 role="institution"
             ),
         ]
