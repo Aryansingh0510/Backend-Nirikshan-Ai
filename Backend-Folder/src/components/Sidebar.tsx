@@ -71,7 +71,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <div>
               <div className="font-bold text-base tracking-tight text-slate-900 flex items-center gap-1.5">
-                NIRIKSHAN <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono">AI</span>
+                NIRIKSHAN <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-mono font-semibold">AI</span>
               </div>
               <div className="text-[10px] text-slate-500 font-medium tracking-wide uppercase">
                 Ground Reality Platform
@@ -100,35 +100,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 return (
                   <button
                     key={item.id}
-                    id={`nav-${item.id}`}
                     onClick={() => {
                       onNavigate(item.id);
                       if (onClose) onClose();
                     }}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                       isActive
-                        ? 'bg-slate-900 text-white shadow-xs'
+                        ? 'bg-slate-900 text-white shadow-md'
                         : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span
-                        className={`material-symbols-outlined text-[20px] ${
-                          isActive ? 'text-white' : 'text-slate-500'
-                        }`}
-                      >
+                      <span className={`material-symbols-outlined text-[20px] ${isActive ? 'text-white' : 'text-slate-400'}`}>
                         {item.icon}
                       </span>
                       <span>{item.label}</span>
                     </div>
-                    {item.badge && item.badge > 0 && (
-                      <span
-                        className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
-                          isActive
-                            ? 'bg-red-500 text-white'
-                            : 'bg-red-100 text-red-700'
-                        }`}
-                      >
+                    {item.badge !== undefined && item.badge > 0 && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-500 text-white">
                         {item.badge}
                       </span>
                     )}
@@ -138,58 +127,47 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
           ))}
 
-          {/* Quick Inspector Switcher Card in Sidebar */}
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
-            <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 mb-1">
-              <span className="material-symbols-outlined text-sm text-blue-600">smartphone</span>
-              Field Inspector Mobile
+          {/* Tactical Inspector Mode Callout Card */}
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 text-left">
+            <div className="flex items-center gap-2 text-blue-900 font-bold text-xs mb-1">
+              <span className="material-symbols-outlined text-blue-600 text-base">smartphone</span>
+              <span>Field Inspector Mobile</span>
             </div>
-            <p className="text-[11px] text-slate-500 mb-2.5">
-              Simulate on-ground verification, GPS geofencing & checklist.
+            <p className="text-[11px] text-blue-700/80 mb-3 leading-relaxed">
+              Simulate on-ground verification, GPS geofencing &amp; checklist.
             </p>
             <button
               onClick={() => onNavigate('inspector-home')}
-              className="w-full py-1.5 px-3 rounded-lg text-xs font-medium bg-white text-slate-800 border border-slate-300 hover:bg-slate-100 flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+              className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs"
             >
               <span>Launch Field Mode</span>
-              <span className="material-symbols-outlined text-xs">arrow_forward</span>
+              <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
           </div>
         </div>
 
-        {/* Footer Profile & System Info */}
-        <div className="p-4 border-t border-slate-200 bg-slate-50/50">
+        {/* User Profile Footer */}
+        <div className="p-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-slate-200 overflow-hidden border border-slate-300 flex-shrink-0">
+            <div className="w-9 h-9 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center font-bold text-slate-700">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
                 alt="S. Rameshwar"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-xs font-bold text-slate-900 truncate">
-                S. Rameshwar
-              </div>
-              <div className="text-[11px] text-slate-500 truncate">
-                Director (PMU Maharashtra)
-              </div>
+            <div>
+              <div className="text-xs font-bold text-slate-900 leading-tight">S. Rameshwar</div>
+              <div className="text-[10px] text-slate-500 font-medium">Director (PMU Maharashtra)</div>
             </div>
-            <button
-              title="Switch Persona / Logout"
-              onClick={() => onNavigate('persona-select')}
-              className="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-200/60"
-            >
-              <span className="material-symbols-outlined text-[18px]">logout</span>
-            </button>
           </div>
-          <div className="mt-3 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-400 font-mono">
-            <span>v2.4.1-b</span>
-            <span className="flex items-center gap-1 text-emerald-600 font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Govt Net Online
-            </span>
-          </div>
+          <button
+            onClick={() => onNavigate('login')}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors"
+            title="Logout"
+          >
+            <span className="material-symbols-outlined text-lg">logout</span>
+          </button>
         </div>
       </aside>
     </>
