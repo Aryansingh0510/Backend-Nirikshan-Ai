@@ -1,0 +1,7 @@
+{
+  "name": "Nirikshan AI - Ground Reality Monitoring",
+  "description": "Institutional monitoring platform verifying self-reported data against ground reality inspections with AI discrepancy detection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
