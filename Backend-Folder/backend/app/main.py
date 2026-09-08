@@ -1,7 +1,7 @@
+from typing import Any
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
-from fastapi.routing import APIRoute
 
 from app.core.config import settings
 from app.core.exceptions import (
@@ -21,8 +21,8 @@ from app.routes import (
     ai_router,
 )
 
-def custom_generate_unique_id(route: APIRoute) -> str:
-    tag = route.tags[0] if route.tags else "default"
+def custom_generate_unique_id(route: Any) -> str:
+    tag = route.tags[0] if getattr(route, "tags", None) else "default"
     clean_path = route.path.replace("{", "").replace("}", "").replace("/", "_")
     return f"{tag}_{route.name}_{clean_path}"
 
